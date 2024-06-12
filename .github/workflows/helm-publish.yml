@@ -28,7 +28,6 @@ jobs:
               helm package -d build "$dir"
             fi
           done
-          helm repo index build --url "https://pnminh.github.io/helm-repo"
 
       - name: Clone Helm repository
         uses: actions/checkout@v3
@@ -39,8 +38,9 @@ jobs:
 
       - name: Copy packages and index file
         run: |
-          cp -r build/* helm-repo/
+          cp -n build/* helm-repo/
           rm -rf build
+          helm repo index helm-repo --url "https://pnminh.github.io/helm-repo"
 
       - name: Commit and push changes
         env:
