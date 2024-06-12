@@ -49,4 +49,4 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Update Helm charts and index" || exit 0
-          git push origin main
+          git push https://$GITHUB_TOKEN@github.com/pnminh/helm-repo.git main
