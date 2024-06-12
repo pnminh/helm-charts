@@ -21,7 +21,6 @@ jobs:
       - name: Package and index Helm charts
         run: |
           mkdir -p build
-          helm repo index build --url "https://pnminh.github.io/helm-repo"
           for dir in ./* ; do
             echo $dir
             if [ -f "$dir/Chart.yaml" ]; then
@@ -29,6 +28,7 @@ jobs:
               helm package -d build "$dir"
             fi
           done
+          helm repo index build --url "https://pnminh.github.io/helm-repo"
 
       - name: Clone Helm repository
         uses: actions/checkout@v3
