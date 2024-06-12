@@ -52,4 +52,4 @@ jobs:
           git add .
           git commit -m "Update Helm charts and index" || exit 0
           git config --unset-all http.https://github.com/.extraheader
-          git push token:$GH_ACTIONS_TOKEN@https://github.com/pnminh/helm-repo.git main
+          git push https://token:$GH_ACTIONS_TOKEN@github.com/pnminh/helm-repo.git main
