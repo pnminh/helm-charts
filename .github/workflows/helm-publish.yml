@@ -43,6 +43,8 @@ jobs:
           rm -rf build
 
       - name: Commit and push changes
+        env:
+          GH_ACTIONS_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
         run: |
           cd helm-repo
           git config user.name github-actions
