@@ -1,0 +1,48 @@
+name: Helm Publish
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the main branch
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: 'v3.7.0'
+
+      - name: Package and index Helm charts
+        run: |
+          mkdir -p build
+          helm repo index build --url "https://pnminh.github.io/helm-repo"
+          for dir in charts/* ; do
+            helm package -d build "$dir"
+          done
+
+      - name: Clone Helm repository
+        uses: actions/checkout@v2
+        with:
+          repository: pnminh/helm-repo
+          ref: main
+          path: helm-repo
+
+      - name: Copy packages and index file
+        run: |
+          cp -r build/* helm-repo/
+          rm -rf build
+
+      - name: Commit and push changes
+        run: |
+          cd helm-repo
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update Helm charts and index" || exit 0
+          git push origin main
