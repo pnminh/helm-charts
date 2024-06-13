@@ -1,2 +1,2 @@
 # helm-charts
-A helm chart repository
+Repository that include source code for all reusable helm charts
