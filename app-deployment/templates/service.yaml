@@ -12,3 +12,19 @@ spec:
   {{- end }}
   selector:
     {{- include "library-chart.selectorLabels" . | nindent 4 }}
+{{- if .Values.blueGreen.enabled }}
+---
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-preview
+  labels:
+    {{- include "library-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  {{- with .Values.service.ports }}
+  ports:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  selector:
+    {{- include "library-chart.selectorLabels" . | nindent 4 }}
+{{- end }}

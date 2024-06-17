@@ -52,6 +52,12 @@ service:
 route:
   enabled: true
   targetPort: 8080
+blueGreen:
+  enabled: false
+  autoPromotionEnabled: false
+  previewRoute:
+    enabled: true
+    host: ""
 
 
 resources: {}

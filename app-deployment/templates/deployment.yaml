@@ -1,5 +1,10 @@
+{{- if .Values.blueGreen.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+{{- else }}
 apiVersion: apps/v1
 kind: Deployment
+{{- end }}
 metadata:
   name: {{ .Release.Name }}
   labels:
@@ -8,6 +13,13 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  strategy:
+  {{- if .Values.blueGreen.enabled }}
+    blueGreen:
+      activeService: {{ .Release.Name }}  # Name of the active service
+      previewService: {{ .Release.Name }}-preview # Name of the preview service
+      autoPromotionEnabled: {{ .Values.blueGreen.autoPromotionEnabled | default "false"  }}
+  {{- end}}
   selector:
     matchLabels:
       {{- include "library-chart.selectorLabels" . | nindent 6 }}
