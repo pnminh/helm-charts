@@ -15,6 +15,7 @@ spec:
 {{- if .Values.blueGreen.enabled }}
 ---
 kind: Service
+apiVersion: v1
 metadata:
   name: {{ .Release.Name }}-preview
   labels:
