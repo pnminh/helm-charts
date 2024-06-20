@@ -65,7 +65,7 @@ azKeyVault:
     - ocp-secrets
   image: #image used for retrieving AZ Key Vault secrets
     path: docker.wwt.com/az-keyvault
-    tag: main-ae7190
+    tag: main-ae7190d
   secretFileDir: /secrets #secrets location to be shared between containers
 
 
