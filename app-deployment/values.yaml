@@ -58,6 +58,14 @@ blueGreen:
   previewRoute:
     enabled: true
     host: ""
+azKeyVault:
+  enabled: false
+  loginSecretName: azure-creds
+  vaultKeys:
+    - ocp-secrets
+  image:
+    path: docker.wwt.com/az-keyvault
+    tag: main-ae7190
 
 
 resources: {}
