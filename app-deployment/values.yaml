@@ -52,12 +52,16 @@ service:
 route:
   enabled: true
   targetPort: 8080
+
 blueGreen:
   enabled: false
   autoPromotionEnabled: false
   previewRoute:
     enabled: true
     host: ""
+
+command: []
+
 azKeyVault:
   enabled: false
   loginSecretName: azure-creds #OCP secret that has Azure creds
