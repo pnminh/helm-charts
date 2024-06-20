@@ -60,12 +60,13 @@ blueGreen:
     host: ""
 azKeyVault:
   enabled: false
-  loginSecretName: azure-creds
-  vaultKeys:
+  loginSecretName: azure-creds #OCP secret that has Azure creds
+  vaultKeys: # Vault Keys to retrieve secrets from
     - ocp-secrets
-  image:
+  image: #image used for retrieving AZ Key Vault secrets
     path: docker.wwt.com/az-keyvault
     tag: main-ae7190
+  secretFileDir: /secrets #secrets location to be shared between containers
 
 
 resources: {}

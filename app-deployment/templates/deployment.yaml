@@ -64,9 +64,11 @@ spec:
                   key: azureTenantId
             - name: KEY_VAULT_NAMES
               value: "{{ .Values.azKeyVault.vaultKeys | join "," }}"
+            - name: SECRET_FILE_DIR
+              value: "{{ .Values.azKeyVault.secretFileDir }}"
           volumeMounts:
             - name: secrets-volume
-              mountPath: /secrets
+              mountPath: {{ .Values.azKeyVault.secretFileDir}}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -98,7 +100,7 @@ spec:
           {{- end }}
           {{- if .Values.azKeyVault.enabled }}
             - name: secrets-volume
-              mountPath: /secrets            
+              mountPath: {{ .Values.azKeyVault.secretFileDir}}           
           {{- end }}
       volumes:
       {{- with .Values.volumes }}
