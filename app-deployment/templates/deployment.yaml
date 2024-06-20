@@ -95,18 +95,18 @@ spec:
           volumeMounts:
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
-            {{- if .Values.azKeyVault.enabled }}
+          {{- end }}
+          {{- if .Values.azKeyVault.enabled }}
             - name: secrets-volume
               mountPath: /secrets            
-            {{- end }}
           {{- end }}
       volumes:
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
-        {{- if .Values.azKeyVault.enabled }}
+      {{- end }}
+      {{- if .Values.azKeyVault.enabled }}
         - name: secrets-volume
           emptyDir: {}
-        {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
